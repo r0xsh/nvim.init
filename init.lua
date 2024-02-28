@@ -184,6 +184,29 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Netrw config
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
+vim.g.netrw_altfile = 1
+vim.g.netrw_preview = 1
+vim.g.netrw_winsize = 25
+vim.keymap.set('n', '-', '<cmd>:Lexplore! %:p:h<CR>', { desc = 'Open Netrw in the directory of the current file' })
+vim.keymap.set('n', '<leader>-', '<cmd>:Lexplore!<CR>', { desc = 'Open Netrw in the working directory' })
+
+vim.api.nvim_create_autocmd('Filetype', {
+  pattern = 'netrw',
+  desc = 'Better mappings for netrw',
+  callback = function()
+    local bind = function(lhs, rhs)
+      vim.keymap.set('n', lhs, rhs, { remap = true, buffer = true })
+    end
+    -- edit new file
+    bind('n', '%')
+    -- rename file
+    bind('r', 'R')
+  end,
+})
+
 -- [[ Basic Autocommands ]]
 --  See :help lua-guide-autocommands
 
