@@ -784,13 +784,32 @@ require('lazy').setup {
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
-      require('mini.statusline').setup()
+      -- require('mini.statusline').setup()
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
-
+  {
+    'nvim-lualine/lualine.nvim',
+    config = function()
+      local function get_codeium_status()
+        local status = vim.api.nvim_call_function('codeium#GetStatusString', {})
+        return '{…}' .. status
+      end
+      require('lualine').setup {
+        options = {
+          icons_enabled = false,
+          theme = 'oxocarbon',
+          component_separators = '|',
+          section_separators = '',
+        },
+        sections = {
+          lualine_y = { get_codeium_status },
+        },
+      }
+    end,
+  },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
