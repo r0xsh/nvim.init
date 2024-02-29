@@ -345,10 +345,6 @@ require('lazy').setup {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-
-      -- Useful status updates for LSP.
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
     },
     config = function()
       -- Brief Aside: **What is LSP?**
@@ -707,6 +703,7 @@ require('lazy').setup {
   },
   {
     'nvim-lualine/lualine.nvim',
+    dependencies = { 'arkav/lualine-lsp-progress' },
     config = function()
       local function get_codeium_status()
         local status = vim.api.nvim_call_function('codeium#GetStatusString', {})
@@ -718,8 +715,14 @@ require('lazy').setup {
           theme = 'oxocarbon',
           component_separators = '|',
           section_separators = '',
+          refresh = {
+            statusline = 250,
+            tabline = 1000,
+            winbar = 1000,
+          },
         },
         sections = {
+          lualine_c = { 'filename', 'lsp_progress' },
           lualine_y = { get_codeium_status },
         },
       }
@@ -750,6 +753,15 @@ require('lazy').setup {
     {
       'Exafunction/codeium.vim',
       event = 'BufEnter',
+      config = function()
+        vim.g.codeium_idle_delay = 850
+        vim.keymap.set('i', '<c-;>', function()
+          return vim.fn['codeium#CycleCompletions'](1)
+        end, { expr = true, silent = true })
+        vim.keymap.set('i', '<c-,>', function()
+          return vim.fn['codeium#CycleCompletions'](-1)
+        end, { expr = true, silent = true })
+      end,
     },
   },
 
