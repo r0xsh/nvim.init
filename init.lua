@@ -98,29 +98,6 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 -- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- Netrw config
-vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3
-vim.g.netrw_altfile = 1
-vim.g.netrw_preview = 1
-vim.g.netrw_winsize = 25
-vim.keymap.set('n', '-', '<cmd>:Lexplore! %:p:h<CR>', { desc = 'Open Netrw in the directory of the current file' })
-vim.keymap.set('n', '<leader>-', '<cmd>:Lexplore!<CR>', { desc = 'Open Netrw in the working directory' })
-
-vim.api.nvim_create_autocmd('Filetype', {
-  pattern = 'netrw',
-  desc = 'Better mappings for netrw',
-  callback = function()
-    local bind = function(lhs, rhs)
-      vim.keymap.set('n', lhs, rhs, { remap = true, buffer = true })
-    end
-    -- edit new file
-    bind('n', '%')
-    -- rename file
-    bind('r', 'R')
-  end,
-})
-
 -- [[ Basic Autocommands ]]
 --  See :help lua-guide-autocommands
 
@@ -652,24 +629,6 @@ require('lazy').setup {
       }
     end,
   },
-
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
-    'nyoom-engineering/oxocarbon.nvim',
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      -- Load the colorscheme here
-      vim.cmd.colorscheme 'oxocarbon'
-
-      -- You can configure highlights by doing something like
-      vim.cmd.hi 'Comment gui=none'
-    end,
-  },
-
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -699,33 +658,8 @@ require('lazy').setup {
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
       require('mini.pairs').setup()
-    end,
-  },
-  {
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'arkav/lualine-lsp-progress' },
-    config = function()
-      local function get_codeium_status()
-        local status = vim.api.nvim_call_function('codeium#GetStatusString', {})
-        return '{…}' .. status
-      end
-      require('lualine').setup {
-        options = {
-          icons_enabled = false,
-          theme = 'oxocarbon',
-          component_separators = '|',
-          section_separators = '',
-          refresh = {
-            statusline = 250,
-            tabline = 1000,
-            winbar = 1000,
-          },
-        },
-        sections = {
-          lualine_c = { 'filename', 'lsp_progress' },
-          lualine_y = { get_codeium_status },
-        },
-      }
+
+      require('mini.visits').setup()
     end,
   },
   { -- Highlight, edit, and navigate code
@@ -750,19 +684,6 @@ require('lazy').setup {
       --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
-    {
-      'Exafunction/codeium.vim',
-      event = 'BufEnter',
-      config = function()
-        vim.g.codeium_idle_delay = 850
-        vim.keymap.set('i', '<c-;>', function()
-          return vim.fn['codeium#CycleCompletions'](1)
-        end, { expr = true, silent = true })
-        vim.keymap.set('i', '<c-,>', function()
-          return vim.fn['codeium#CycleCompletions'](-1)
-        end, { expr = true, silent = true })
-      end,
-    },
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
@@ -782,7 +703,7 @@ require('lazy').setup {
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information see: :help lazy.nvim-lazy.nvim-structuring-your-plugins
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }
 
 -- The line beneath this is called `modeline`. See `:help modeline`
