@@ -13,7 +13,13 @@ vim.g.maplocalleader = ' '
 -- vim.opt.number = true
 -- You can also add relative line numbers, for help with jumping.
 --  Experiment for yourself to see if you like it!
+vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.cursorline = true
+vim.opt.numberwidth = 1
+
+-- Enable autoreload on file change
+vim.opt.autoread = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -60,7 +66,7 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 7
+vim.opt.scrolloff = 5
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -532,7 +538,7 @@ require('lazy').setup {
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        javascript = { 'prettier' },
+        -- javascript = { 'prettier' },
       },
     },
   },
