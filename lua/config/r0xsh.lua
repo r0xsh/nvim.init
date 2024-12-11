@@ -2,8 +2,8 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Make line numbers default
--- vim.opt.number = true
--- vim.opt.relativenumber = true
+vim.opt.number = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -89,28 +89,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank()
   end,
-})
-
--- First ensure you have both number and relativenumber enabled by default
-vim.wo.number = true
-vim.wo.relativenumber = true
-
--- Create an augroup to manage the autocommands
-local number_toggle = vim.api.nvim_create_augroup("numbertoggle", { clear = true })
-
--- Handle command mode
-vim.api.nvim_create_autocmd({ "CmdlineEnter" }, {
-    group = number_toggle,
-    callback = function()
-        local win = vim.api.nvim_get_current_win()
-        vim.wo[win].relativenumber = false
-    end,
-})
-
-vim.api.nvim_create_autocmd({ "CmdlineLeave" }, {
-    group = number_toggle,
-    callback = function()
-        local win = vim.api.nvim_get_current_win()
-        vim.wo[win].relativenumber = true
-    end,
 })
