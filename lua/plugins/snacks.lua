@@ -11,6 +11,18 @@ return {
       terminal = { enabled = true },
       notifier = { enabled = true },
       quickfile = { enabled = true },
+      indent = {
+        enabled = true,
+        scope = {
+          animate = {
+            enabled = true,
+            duration = {
+              step = 10,
+              total = 350,
+            },
+          },
+        },
+      },
       -- statuscolumn = { enabled = true },
       -- words = { enabled = true },
     },

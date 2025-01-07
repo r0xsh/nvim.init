@@ -58,12 +58,26 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Hide the banner
+vim.g.netrw_banner = 0
+
+-- Set the window size (25% of screen)
+vim.g.netrw_winsize = 25
+
+-- Use tree style listing
+vim.g.netrw_liststyle = 3
+
+-- Don't show hidden files by default (press gh to toggle)
+vim.g.netrw_list_hide = '(^|ss)\zs.S+'
+
+-- Preview files in vertical split
+vim.g.netrw_preview = 1
+vim.g.netrw_alto = 0
+
+vim.g.netrw_keepdir = 0
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
-
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
