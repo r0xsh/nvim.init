@@ -93,7 +93,7 @@ return {
   },
   {
     'Exafunction/codeium.vim',
-    version = '1.8.37',
+    -- version = '1.8.37',
     event = 'BufEnter',
     config = function()
       vim.g.codeium_idle_delay = 650
