@@ -32,7 +32,7 @@ return {
       -- keymap("n", "<Leader><Leader>", function() marlin.toggle() end, {  desc = "toggle cur/last open index" })
 
       for index = 1, 4 do
-        keymap('n', '<Leader>' .. index, function()
+        keymap('n', '<leader>' .. index, function()
           marlin.open(index)
         end, { desc = 'goto ' .. index })
       end
@@ -107,13 +107,4 @@ return {
   },
   -- { 'elkowar/yuck.vim', ft = 'yuck' },
   -- { 'rescript-lang/vim-rescript', ft="rescript" },
-  -- {
-  --   "jinzhongjia/LspUI.nvim",
-  --   branch = "main",
-  --   config = function()
-  --     require("LspUI").setup({
-  --       -- config options go here
-  --     })
-  --   end
-  -- }
 }
