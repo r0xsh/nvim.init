@@ -31,8 +31,9 @@ return {
       -- keymap("n", "<Leader>fp", function() marlin.prev() end, {  desc = "open previous index" })
       -- keymap("n", "<Leader><Leader>", function() marlin.toggle() end, {  desc = "toggle cur/last open index" })
 
+      local azerty_numbers = { '&', 'é', '"', "'" }
       for index = 1, 4 do
-        keymap('n', '<leader>' .. index, function()
+        keymap('n', '<leader>' .. azerty_numbers[index], function()
           marlin.open(index)
         end, { desc = 'goto ' .. index })
       end
