@@ -20,10 +20,20 @@ return {
   {
     'wtfox/jellybeans.nvim',
     lazy = false,
+    enabled = false,
     priority = 1000,
     config = function()
       require('jellybeans').setup()
       vim.cmd.colorscheme 'jellybeans'
+    end,
+  },
+  {
+    'folke/tokyonight.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('tokyonight').setup()
+      vim.cmd.colorscheme 'tokyonight'
     end,
   },
 }
